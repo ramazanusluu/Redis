@@ -26,6 +26,18 @@ console.log("Del: ", del);
 const exists = await client.exists("key");
 console.log("Exists: ", exists);
 
-//hset işelmi
-const hset = await client.hSet("user", "name", "Asya");
+//hSet işlemi
+const hset = await client.hSet("user", "lastname", "Avcı");
 console.log("hset : ", hset);
+
+//hGetAll işlemi
+const hgetall = await client.hGetAll("user");
+console.log("hGetAll: ", hgetall);
+
+//pub/sub işlemleri
+const subscriber = client.duplicate();
+await subscriber.connect();
+
+await subscriber.subscribe("channel", (message) => {
+  console.log(message);
+});
